@@ -20,11 +20,11 @@
     <parent>
         <groupId>org.axonframework</groupId>
         <artifactId>axon</artifactId>
-        <version>4.3.5</version>
+        <version>4.3.6-SNAPSHOT</version>
     </parent>
 
     <artifactId>axon-server-connector</artifactId>
-  <version>4.3.5-connector-backport</version>
+  <version>4.3.6-SNAPSHOT</version>
 
     <name>Axon Framework Connector for AxonServer</name>
     <description>
@@ -78,7 +78,7 @@
         <dependency>
             <groupId>org.axonframework</groupId>
             <artifactId>axon-configuration</artifactId>
-            <version>4.3.5</version>
+            <version>4.3.6-SNAPSHOT</version>
             <optional>true</optional>
         </dependency>
 
@@ -110,8 +110,4 @@
             </plugin>
         </plugins>
     </build>
-
-  <scm>
-    <tag>axon-4.3.5-connector-backport</tag>
-  </scm>
 </project>
