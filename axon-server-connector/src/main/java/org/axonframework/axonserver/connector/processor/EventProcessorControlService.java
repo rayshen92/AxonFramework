@@ -140,20 +140,42 @@ public class EventProcessorControlService {
         private final EventProcessor processor;
         private final String name;
 
-        public AxonProcessorInstructionHandler(EventProcessor processor, String name) {
+        public AxonProcessorInstructionHandler( EventProcessor processor, String name ) {
+
             this.processor = processor;
             this.name = name;
         }
 
         @Override
-        public CompletableFuture<Boolean> releaseSegment(int segmentId) {
+        public CompletableFuture<Boolean> resetTokens() {
+
             try {
-                if (!(processor instanceof TrackingEventProcessor)) {
-                    logger.info("Release segment requested for processor [{}] which is not a Tracking Event Processor",
-                                name);
-                    return CompletableFuture.completedFuture(false);
-                } else {
-                    ((TrackingEventProcessor) processor).releaseSegment(segmentId);
+                if ( !( processor instanceof TrackingEventProcessor ) ) {
+                    logger.info( "Reset Tokens requested for processor [{}] which is not a Tracking Event Processor",
+                                 name );
+                    return CompletableFuture.completedFuture( false );
+                }
+                else {
+                    ( (TrackingEventProcessor) processor ).resetTokens();
+                }
+            }
+            catch ( Exception e ) {
+                return exceptionallyCompletedFuture( e );
+            }
+            return CompletableFuture.completedFuture( true );
+        }
+
+        @Override
+        public CompletableFuture<Boolean> releaseSegment( int segmentId ) {
+
+            try {
+                if ( !( processor instanceof TrackingEventProcessor ) ) {
+                    logger.info( "Release segment requested for processor [{}] which is not a Tracking Event Processor",
+                                 name );
+                    return CompletableFuture.completedFuture( false );
+                }
+                else {
+                    ( (TrackingEventProcessor) processor ).releaseSegment( segmentId );
                 }
             } catch (Exception e) {
                 return exceptionallyCompletedFuture(e);
